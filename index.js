@@ -22,6 +22,7 @@ const client = new MongoClient(uri, {
 try {
   const recentshoot = client.db("extrashoot").collection("photo");
   const allService = client.db("addService").collection("singleService");
+  const reviews = client.db("addService").collection("review");
   app.get("/extrashoot", async (req, res) => {
     const query = {};
     const cursor = recentshoot.find(query);
@@ -33,6 +34,19 @@ try {
     const order = req.body;
     const result = await allService.insertOne(order);
     res.send(result);
+  });
+
+  app.post("/review", async (req, res) => {
+    const review = req.body;
+    const result = await reviews.insertOne(review);
+    res.send(result);
+  });
+
+  app.get("/review", async (req, res) => {
+    const query = {};
+    const cursor = reviews.find(query);
+    const review = await cursor.toArray();
+    res.send(review);
   });
 
   app.get("/addService", async (req, res) => {
@@ -54,7 +68,7 @@ try {
   app.get("/service/:id", async (req, res) => {
     const id = req.params.id;
     const query = { _id: ObjectId(id) };
-    const result = await allService.findOne(query._id === id);
+    const result = await allService.findOne(query);
     res.send(result);
   });
 } catch {}
