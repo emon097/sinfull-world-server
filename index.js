@@ -37,6 +37,15 @@ try {
 
   app.get("/addService", async (req, res) => {
     const query = {};
+    const sort = { length: -1 };
+    const limit = 3;
+    const cursor = allService.find(query).sort(sort).limit(limit);
+    const service = await cursor.toArray();
+
+    res.send(service);
+  });
+  app.get("/service", async (req, res) => {
+    const query = {};
     const cursor = allService.find(query);
     const service = await cursor.toArray();
     res.send(service);
