@@ -34,6 +34,13 @@ try {
     const result = await allService.insertOne(order);
     res.send(result);
   });
+
+  app.get("/addService", async (req, res) => {
+    const query = {};
+    const cursor = allService.find(query);
+    const service = await cursor.toArray();
+    res.send(service);
+  });
 } catch {}
 
 app.listen(port, () => {
