@@ -21,11 +21,18 @@ const client = new MongoClient(uri, {
 
 try {
   const recentshoot = client.db("extrashoot").collection("photo");
+  const allService = client.db("addService").collection("singleService");
   app.get("/extrashoot", async (req, res) => {
     const query = {};
     const cursor = recentshoot.find(query);
     const extrashoot = await cursor.toArray();
     res.send(extrashoot);
+  });
+
+  app.post("/addService", async (req, res) => {
+    const order = req.body;
+    const result = await allService.insertOne(order);
+    res.send(result);
   });
 } catch {}
 
