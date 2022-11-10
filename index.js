@@ -43,12 +43,22 @@ try {
   });
 
   app.get("/review", async (req, res) => {
-    const query = {};
+    console.log(req.query.email);
+    let query = {};
+    if (req.query.services) {
+      query = {
+        services: req.query.services,
+      };
+    }
+    if (req.query.email) {
+      query = {
+        email: req.query.email,
+      };
+    }
     const cursor = reviews.find(query);
     const review = await cursor.toArray();
     res.send(review);
   });
-
   app.get("/addService", async (req, res) => {
     const query = {};
     const sort = { length: -1 };
