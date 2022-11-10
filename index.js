@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
 //sinfullworld
 //0D7Jcsgc1gHUS7TM
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@cluster0.k9jkjo0.mongodb.net/?retryWrites=true&w=majority`;
-console.log(uri);
+
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
