@@ -5,14 +5,14 @@ const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 app.use(express.json());
 app.use(cors());
-
+require("dotenv").config();
 app.get("/", (req, res) => {
-  res.send("hello mongodb");
+  res.send("hello mongodb mamu");
 });
 //sinfullworld
 //0D7Jcsgc1gHUS7TM
-const uri =
-  "mongodb+srv://sinfullworld:0D7Jcsgc1gHUS7TM@cluster0.k9jkjo0.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@cluster0.k9jkjo0.mongodb.net/?retryWrites=true&w=majority`;
+console.log(uri);
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
