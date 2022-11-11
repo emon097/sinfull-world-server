@@ -36,6 +36,32 @@ try {
     res.send(result);
   });
 
+  // update
+
+  app.get("/review/:id", async (req, res) => {
+    const id = req.params.id;
+    const query = { _id: ObjectId(id) };
+    const review = await reviews.findOne(query);
+    res.send(review);
+  });
+
+  app.patch("/review/:id", async (req, res) => {
+    const id = req.params.id;
+    const filter = { _id: ObjectId(id) };
+    const user = req.body;
+    console.log(user);
+    const option = { upsert: true };
+    const updatedUser = {
+      $set: {
+        review: user.review,
+      },
+    };
+    const result = await reviews.updateOne(filter, updatedUser, option);
+    res.send(result);
+  });
+
+  // update
+
   app.post("/review", async (req, res) => {
     const review = req.body;
     const result = await reviews.insertOne(review);
